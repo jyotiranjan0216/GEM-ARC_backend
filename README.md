@@ -6,6 +6,7 @@ A modern web application for architecture and design.
 
 - **Frontend**: [https://gem-arc.netlify.app](https://gem-arc.netlify.app)
 - **Backend**: [https://gem-arc-backend.onrender.com](https://gem-arc-backend.onrender.com)
+- **Main GitHub Repository**: [Access the complete project (Frontend + Backend)](https://github.com/jyotiranjan0216/GEM-ARC)
 
 ## Overview
 
