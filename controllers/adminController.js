@@ -16,10 +16,12 @@ export const twilioTest = async (req, res) => {
   try {
 
     await twilioClient.messages.create({
-      body: `University Event Alert: A new event matches your profile. Check it out!`,
-      from: twilioPhoneNumber,
-      to: `+91 "7894927543"`
-    });
+            body: `🚨 New Event Alert! 🚨  
+          A fantastic new event, "${eventData.name}", that perfectly matches your profile is live now! 🎉  
+          Don't miss out! Explore more and register today at: [https://gem-arc.netlify.app](https://gem-arc.netlify.app) 🔥`,
+            from: twilioPhoneNumber,
+            to: `+91${user.phone}`
+    }); 
   } catch (error) {
     console.error('Twilio error:', error);
   }
