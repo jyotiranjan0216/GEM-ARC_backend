@@ -96,15 +96,20 @@ export const getAllEvents = async (req, res) => {
 // Get a single event
 export const getEvent = async (req, res) => {
   try {
-    const event = await Event.findById(req.params.id);
+    const event = await Event.findById(req.params.id)
+      .populate('participants') // populate participants with User details
+      .populate('volunteers');   // populate volunteers with User details
+
     if (!event) {
       return res.status(404).json({ success: false, error: 'Event not found' });
     }
+
     res.status(200).json({ success: true, event });
   } catch (error) {
     res.status(400).json({ success: false, error: error.message });
   }
 };
+
 
 // Update an event
 export const updateEvent = async (req, res) => {
