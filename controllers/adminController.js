@@ -16,9 +16,12 @@ export const twilioTest = async (req, res) => {
   try {
 
     await twilioClient.messages.create({
-      body: `University Event Alert: A new event matches your profile. Check it out!`,
+      body: `
+      New Event Alert!  
+    A fantastic new event, , that perfectly matches your profile is live now! 
+    Don't miss out! Explore more and register today at: https://gem-arc.netlify.app`,
       from: twilioPhoneNumber,
-      to: `+91 "7894927543"`
+      to: `+919262724510`
     });
   } catch (error) {
     console.error('Twilio error:', error);
@@ -36,10 +39,11 @@ export const createEvent = async (req, res) => {
     // Find users with matching skills or interests
     const matchingUsers = await User.find({
       $or: [
-        { skills: { $in: eventData.skillsRequired } },
-        { interests: { $in: eventData.interestsTags } }
+        { skills: { $in: [...eventData.skillsRequired, ...eventData.interestsTags] } },
+        { interests: { $in: [...eventData.skillsRequired, ...eventData.interestsTags] } }
       ]
     });
+    
     
     // Send notifications to matching users
     for (const user of matchingUsers) {
@@ -53,21 +57,20 @@ export const createEvent = async (req, res) => {
       });
       
       await notification.save();
+      console.log('Notification sent to user:', user);
       
       // Send SMS notification if phone number exists
-      if (user.phone) {
         try {
           await twilioClient.messages.create({
-            body: `🚨 New Event Alert! 🚨  
-          A fantastic new event, "${eventData.name}", that perfectly matches your profile is live now! 🎉  
-          Don't miss out! Explore more and register today at: [https://gem-arc.netlify.app](https://gem-arc.netlify.app) 🔥`,
+            body: `New Event Alert!  
+          A fantastic new event, "${eventData.name}", that perfectly matches your profile is live now! 
+          Don't miss out! Explore more and register today at: https://gem-arc.netlify.app`,
             from: twilioPhoneNumber,
             to: `+91${user.phone}`
           });          
         } catch (error) {
           console.error('SMS notification error:', error);
         }
-      }
     }
     
     res.status(201).json({
@@ -217,7 +220,9 @@ export const approveEventProposal = async (req, res) => {
         if (user.phoneNumber) {
           try {
             await twilioClient.messages.create({
-              body: `University Event Alert: A new event "${proposal.name}" matches your profile. Check it out!`,
+              body: `New Event Alert!  
+          A fantastic new event, "${proposal.name}", that perfectly matches your profile is live now! 
+          Don't miss out! Explore more and register today at: https://gem-arc.netlify.app`,
               from: twilioPhoneNumber,
               to: user.phoneNumber
             });

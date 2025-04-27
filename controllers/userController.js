@@ -47,9 +47,8 @@ export const getProfile = async (req, res) => {
 
 export const getLeaderboard = async (req, res) => {
   try {
-    // Get all users sorted by coins in descending order
+    // Get all users with all fields, sorted by coins in descending order
     const users = await User.find({})
-      .select('name coins createdAt')
       .sort({ coins: -1 })
       .lean();
     
