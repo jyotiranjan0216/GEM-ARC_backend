@@ -1,7 +1,6 @@
 // backend/controllers/userController.js
 import User from '../models/User.js';
 
-// Save selected skills
 export const saveSkills = async (req, res) => {
   const { skills } = req.body;
   const userId = req.user.id;

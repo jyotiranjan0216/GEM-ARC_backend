@@ -93,7 +93,6 @@ export const userRegister = async (req, res) => {
       password: hashedPassword
     });
 
-    // Generate token
     const token = generateToken(user._id);
 
     // Send response

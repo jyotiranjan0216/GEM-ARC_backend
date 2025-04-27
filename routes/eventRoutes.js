@@ -16,7 +16,6 @@ router.get('/allEvents', async (req, res) => {
     const events = await Event.find().sort({ date: 1 }); // 1 for ascending order
     res.status(200).json(events); // Send the sorted events as a JSON response
   } catch (err) {
-  //   console.error('Error fetching events:', err);
     res.status(500).json({ message: 'Server Error while fetching events' });
   }
 });

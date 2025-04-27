@@ -438,7 +438,7 @@ function calculateUpcomingEvents(events) {
       const eventDate = new Date(event.date);
       return eventDate >= now && eventDate <= nextWeek;
     })
-    .sort((a, b) => new Date(a.date) - new Date(b.date)); // Sort by date ascending
+    .sort((a, b) => new Date(a.date) - new Date(b.date)); 
 }
 
 function categorizeByTag(events, tagKeywords) {

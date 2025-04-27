@@ -165,7 +165,6 @@ export const approveEventProposal = async (req, res) => {
       return res.status(404).json({ success: false, error: 'Proposal not found' });
     }
     
-    // Update proposal status
     proposal.status = 'approved';
     proposal.adminFeedback = adminFeedback || 'Proposal approved';
     await proposal.save();
@@ -199,8 +198,8 @@ export const approveEventProposal = async (req, res) => {
     // Find and notify users with matching skills or interests
     const matchingUsers = await User.find({
       $or: [
-        { skills: { $in: proposal.skillsRequired } },
-        { interests: { $in: proposal.interestsTags } }
+        { skills: { $in: [...eventData.skillsRequired, ...eventData.interestsTags] } },
+        { interests: { $in: [...eventData.skillsRequired, ...eventData.interestsTags] } }
       ]
     });
     
