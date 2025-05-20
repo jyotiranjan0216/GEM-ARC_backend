@@ -305,6 +305,8 @@ export const getAllFeedback = async (req, res) => {
       _id: fb._id,
       eventId: fb.event?._id || null,
       name: fb.event?.name || 'N/A',
+      subject: fb.subject,
+      feedbackType: fb.feedbackType,
       userId: fb.user?._id || null,
       userName: fb.user?.name || '~Anonymous',
       userEmail: fb.user?.email || 'N/A',
